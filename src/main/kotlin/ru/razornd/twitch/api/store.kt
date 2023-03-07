@@ -29,7 +29,8 @@ data class Clip(
     val title: String,
     val viewCount: Int,
     val offset: Int?,
-    val duration: Double
+    val duration: Double,
+    val createdAt: Instant
 )
 
 interface ClipsStore {
@@ -47,5 +48,5 @@ open class PersistentClipsStore(private val repository: ClipRepository) : ClipsS
             .map { it.asDto() }
             .toList()
 
-    private fun ClipModel.asDto() = Clip(id, videoId, title, viewCount, vodOffset, duration)
+    private fun ClipModel.asDto() = Clip(id, videoId, title, viewCount, vodOffset, duration, createdAt)
 }
