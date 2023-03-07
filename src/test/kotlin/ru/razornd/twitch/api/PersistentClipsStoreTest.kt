@@ -67,9 +67,33 @@ private val models = listOf(
 
 
 private val expected = listOf(
-    Clip("AffluentGrossWolfCoolStoryBro-wSMEUglI-VtbOGCR", 1756245080, "Налёт", 571, 13383, 30.0),
-    Clip("NiceCarefulLadiesAliens-I9U3ILqy9oyP_oKJ", 1756245080, "РЕНДИ > Ф1 ГОНКА БАХРЕЙН", 125, 13557, 28.0),
-    Clip("GloriousDignifiedSushiRitzMitz-8r3S2fohJNogJHKa", 1755428285, "Кекс про отдых в Тае", 50, 21427, 4.9)
+    Clip(
+        "AffluentGrossWolfCoolStoryBro-wSMEUglI-VtbOGCR",
+        1756245080,
+        "Налёт",
+        571,
+        13383,
+        30.0,
+        Instant.parse("2023-03-05T12:50:15Z")
+    ),
+    Clip(
+        "NiceCarefulLadiesAliens-I9U3ILqy9oyP_oKJ",
+        1756245080,
+        "РЕНДИ > Ф1 ГОНКА БАХРЕЙН",
+        125,
+        13557,
+        28.0,
+        Instant.parse("2023-03-05T12:36:03Z")
+    ),
+    Clip(
+        "GloriousDignifiedSushiRitzMitz-8r3S2fohJNogJHKa",
+        1755428285,
+        "Кекс про отдых в Тае",
+        50,
+        21427,
+        4.9,
+        Instant.parse("2023-03-04T20:53:24Z")
+    )
 )
 
 class PersistentClipsStoreTest {
@@ -82,7 +106,12 @@ class PersistentClipsStoreTest {
     fun find() {
         val after = Instant.parse("2023-03-04T20:53:20Z")
 
-        coEvery { repository.findTop50ByCreatedAtAfterAndViewCountGreaterThanEqualOrderByCreatedAt(after, 50) } returns models.asFlow()
+        coEvery {
+            repository.findTop50ByCreatedAtAfterAndViewCountGreaterThanEqualOrderByCreatedAt(
+                after,
+                50
+            )
+        } returns models.asFlow()
 
         val actual = runBlocking { store.find(after) }
 

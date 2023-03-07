@@ -36,20 +36,22 @@ class ClipsApiTest {
     private val body = """
         [
           {
-            "id": "j0tM78y1HAQ87c",
+            "id": "j0tM78y1HAQ",
             "videoId": 59,
             "title": "booty",
             "viewCount": 45996,
             "offset": 1157530526,
-            "duration": 16.9
+            "duration": 16.9,
+            "createdAt": "2019-03-25T03:40:42Z"
           },
           {
-            "id": "YR9KdH5j72ODJn",
+            "id": "YR9KdH5j72O",
             "videoId": 278126720,
             "title": "rom",
             "viewCount": 548611,
             "offset": 94,
-            "duration": 54.0
+            "duration": 54.0,
+            "createdAt": "2019-03-25T12:13:01Z"
           },
           {
             "id": "hgTbhUsD2SY",
@@ -57,15 +59,17 @@ class ClipsApiTest {
             "title": "local",
             "viewCount": 7879392,
             "offset": 39229529,
-            "duration": 41.0
+            "duration": 41.0,
+            "createdAt": "2019-03-25T19:57:51Z"
           },
           {
-            "id": "QE2xVfz3A6pxhWOUl1Bls",
+            "id": "QE2xVfz3A6p",
             "videoId": 1845565898,
             "title": "choice",
             "viewCount": 87388,
             "offset": 9750,
-            "duration": 23.0
+            "duration": 23.0,
+            "createdAt": "2019-03-25T14:11:59Z"
           }
         ]
     """.trimIndent()
@@ -75,10 +79,10 @@ class ClipsApiTest {
         val after = "2020-11-12T12:17:54Z"
 
         coEvery { store.find(Instant.parse(after)) } returns listOf(
-            Clip("j0tM78y1HAQ87c", 59, "booty", 45996, 1157530526, 16.9),
-            Clip("YR9KdH5j72ODJn", 278126720, "rom", 548611, 94, 54.0),
-            Clip("hgTbhUsD2SY", 1448532184, "local", 7879392, 39229529, 41.0),
-            Clip("QE2xVfz3A6pxhWOUl1Bls", 1845565898, "choice", 87388, 9750, 23.0)
+            Clip("j0tM78y1HAQ", 59, "booty", 45996, 1157530526, 16.9, Instant.parse("2019-03-25T03:40:42Z")),
+            Clip("YR9KdH5j72O", 278126720, "rom", 548611, 94, 54.0, Instant.parse("2019-03-25T12:13:01Z")),
+            Clip("hgTbhUsD2SY", 1448532184, "local", 7879392, 39229529, 41.0, Instant.parse("2019-03-25T19:57:51Z")),
+            Clip("QE2xVfz3A6p", 1845565898, "choice", 87388, 9750, 23.0, Instant.parse("2019-03-25T14:11:59Z"))
         )
 
         client.get()
